@@ -74,7 +74,13 @@ func Hostname() (string, error) {
 	if err != nil {
 		log.Println("ERROR: os.Hostname() fail", err)
 	}
-	return hostname, err
+
+	tag, err := GetNameTag("Name")
+	if (err != nil) || (tag == "") {
+		log.Println("INFO: GetNameTag('Name') fail", err)
+		return hostname, err
+	}
+	return tag+"-"+hostname, err
 }
 
 func IP() string {
